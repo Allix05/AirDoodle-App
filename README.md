@@ -1,11 +1,11 @@
 # AirDoodle
 
-[![CI](https://github.com/Allix05/airdoodle/actions/workflows/ci.yml/badge.svg)](https://github.com/Allix05/airdoodle/actions/workflows/ci.yml)
+[![CI](https://github.com/Allix05/AirDoodle-App/actions/workflows/ci.yml/badge.svg)](https://github.com/Allix05/AirDoodle-App/actions/workflows/ci.yml)
 [![License: All Rights Reserved](https://img.shields.io/badge/License-All%20Rights%20Reserved-red.svg)](LICENSE)
 
 Draw in the air with your webcam and let a neural network guess what it is. Pinch your thumb and index finger together to draw, pick a color, sketch a digit, a letter, or a doodle, then hit **Guess** — a CNN trained on real handwriting and sketch data classifies your final drawing, right there in your browser.
 
-**[Try it live](https://allix05.github.io/airdoodle/)** — 100% client-side: hand tracking and inference both run locally via WebAssembly. Your camera feed never leaves your device.
+**[Try it live](https://allix05.github.io/AirDoodle-App/)** — 100% client-side: hand tracking and inference both run locally via WebAssembly. Your camera feed never leaves your device.
 
 <!-- SCREENSHOT_PLACEHOLDER -->
 
