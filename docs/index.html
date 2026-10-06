@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AirDoodle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Kalam:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="bg-blobs"><span></span><span></span><span></span></div>
+  <div class="page">
+    <header class="hero">
+      <h1>Draw In The Air <span class="accent">&amp; Let AI Guess</span></h1>
+      <p class="subtitle">Pinch your thumb and index finger together to draw with your webcam. Pick a color, sketch a digit, a letter, or a doodle, then hit Guess &mdash; a neural network trained on real handwriting and sketch data will classify your final drawing. Runs <strong>entirely in your browser</strong>, no server, video never leaves your device.</p>
+    </header>
+
+    <main class="layout">
+      <section class="camera-panel">
+        <span class="tape tape-1" aria-hidden="true"></span>
+        <div id="startOverlay" class="start-overlay">
+          <button id="startBtn" class="start-btn">Start camera &amp; model</button>
+          <p class="start-hint">Needs camera access. The AI model (~2MB) loads once, then everything runs locally.</p>
+        </div>
+
+        <div id="loadingOverlay" class="loading-overlay hidden">
+          <div class="spinner"></div>
+          <div class="loading-text" id="loadingText">Loading hand-tracking model&hellip;</div>
+        </div>
+
+        <div class="video-wrap">
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="drawCanvas"></canvas>
+          <canvas id="overlay"></canvas>
+          <div id="flashOverlay" class="flash-overlay"></div>
+        </div>
+
+        <div id="errorBanner" class="error-banner hidden"></div>
+
+        <div class="toolbar">
+          <div class="color-swatches" id="colorSwatches"></div>
+          <button id="clearBtn">Clear</button>
+          <button id="guessBtn" class="guess-btn">Guess!</button>
+        </div>
+
+        <div id="penStatus" class="pen-status">
+          <span class="dot"></span><span id="penStatusText">Pinch thumb + index finger to draw</span>
+        </div>
+      </section>
+
+      <aside class="control-panel">
+        <span class="tape tape-2" aria-hidden="true"></span>
+        <div id="processingOverlay" class="processing-overlay">
+          <div class="voxel-stage">
+            <div class="voxel-grid" id="voxelGrid"></div>
+          </div>
+          <div class="processing-label">Analyzing pixels&hellip;</div>
+        </div>
+
+        <h2>AI's guess</h2>
+        <p class="hint">Draw a digit (0-9), a letter (A-Z), or one of the doodle categories below, then click Guess.</p>
+
+        <div id="resultBlock" class="result-block">
+          <canvas id="snapshotCanvas" class="snapshot" width="28" height="28"></canvas>
+          <div id="resultGuess" class="result-guess">&mdash;</div>
+          <div class="result-sub">what the model actually saw is shown above</div>
+          <div id="topGuesses" class="top-guesses"></div>
+
+          <div id="feedbackSection" class="feedback-section">
+            <div id="feedbackAsk" class="feedback-row">
+              <span class="feedback-label">Was that right?</span>
+              <button id="feedbackYes" class="feedback-btn yes">Yes</button>
+              <button id="feedbackNo" class="feedback-btn no">No</button>
+            </div>
+            <div id="feedbackCorrect" class="feedback-correct hidden">
+              <div class="feedback-label">What was it?</div>
+              <div class="feedback-chips" id="feedbackChips"></div>
+            </div>
+            <div id="feedbackThanks" class="feedback-thanks hidden">Saved &mdash; thanks for the correction!</div>
+          </div>
+        </div>
+
+        <div class="category-list">
+          <div class="value-label">What it can recognize</div>
+          <div class="category-chips" id="categoryChips"></div>
+        </div>
+
+        <div class="corrections-block">
+          <div class="value-label">Training feedback</div>
+          <p class="hint" id="correctionsCount">No corrections collected yet.</p>
+          <button id="downloadCorrections" class="small-btn" disabled>Download corrections</button>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      Built with MediaPipe Hand Landmarker + PyTorch/ONNX Runtime Web &middot; <a href="https://github.com/Allix05/airdoodle" target="_blank" rel="noopener">source on GitHub</a>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.19.2/dist/ort.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
